@@ -34,7 +34,19 @@ const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find();
 
-        res.status(200).json(products);
+    // Extract category IDs from products
+    const categoryIds = products.map((product) => product.category);
+
+    // Fetch category names based on category IDs
+    const categories = await Category.find({ _id: { $in: categoryIds } });
+
+    // Map category names to products
+    const productsWithCategoryNames = products.map((product) => ({
+      ...product._doc,
+      categoryName: categories.find((category) => category._id.equals(product.category)).name,
+    }));
+
+    res.status(200).json(productsWithCategoryNames);
     } catch (err) {
         res.status(500).json({
             error: error.message

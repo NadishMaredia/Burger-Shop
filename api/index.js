@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path')
 const bodyParser = require('body-parser');
+var cors = require('cors')
 require('dotenv').config({ path: path.resolve(__dirname, './config.env') })
 
 const config = require('./config/config');
@@ -11,6 +12,7 @@ const productRoute = require('./routes/productRoute');
 
 const app = express();
 
+app.use(cors())
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 

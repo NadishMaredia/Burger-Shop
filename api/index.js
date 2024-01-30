@@ -9,6 +9,7 @@ const database = require('./database/db');
 
 const categoryRoute = require('./routes/categoryRoute');
 const productRoute = require('./routes/productRoute');
+const userRoute = require('./routes/userRoute');
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/api', categoryRoute);
 app.use('/api', productRoute);
+app.use('/api', userRoute);
 
 const PORT = config.port;
 app.listen(PORT, () => {

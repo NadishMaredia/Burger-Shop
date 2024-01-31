@@ -49,7 +49,7 @@ const getAllProducts = async (req, res) => {
     res.status(200).json(productsWithCategoryNames);
     } catch (err) {
         res.status(500).json({
-            error: error.message
+            error: err.message
         })
     }
 

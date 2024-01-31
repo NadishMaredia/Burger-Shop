@@ -3,6 +3,7 @@ import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn,
 import { AuthService } from '../services/auth.service';
 import { LoginRequest, LoginResponse, User } from '../models/User';
 import { NotificationService } from '../services/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private notificationService: NotificationService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private notificationService: NotificationService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -92,5 +93,9 @@ export class NavbarComponent implements OnInit {
 
   showErrorNotification(): void {
     this.notificationService.showError('Oops! Something went wrong.');
+  }
+
+  signup() {
+    this.router.navigate(['/signup']);
   }
 }

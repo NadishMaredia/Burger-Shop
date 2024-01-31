@@ -1,0 +1,92 @@
+<main class="form-signin w-100 m-auto">
+  <form [formGroup]="signUpForm" class="form-signup">
+    <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+    <div class="form-floating mb-2">
+      <input
+        type="name"
+        class="form-control"
+        id="name"
+        placeholder="name"
+        formControlName="name"
+        [ngClass]="{
+          'has-error':
+            signUpForm.get('name')?.invalid &&
+            (signUpForm.get('name')?.dirty || signUpForm.get('name')?.touched)
+        }"
+      />
+      <label for="name">Name</label>
+      <div
+        *ngIf="
+          signUpForm.get('name')?.hasError('emptyName') &&
+          signUpForm.get('name')?.touched
+        "
+        class="error-message"
+      >
+        Name is required.
+      </div>
+    </div>
+    <div class="form-floating mb-2">
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        placeholder="name@example.com"
+        formControlName="email"
+        [ngClass]="{
+          'has-error':
+            signUpForm.get('email')?.invalid &&
+            (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)
+        }"
+      />
+      <label for="email">Email address</label>
+      <div
+        *ngIf="
+          signUpForm.get('email')?.hasError('emptyEmail') &&
+          signUpForm.get('email')?.touched
+        "
+        class="error-message"
+      >
+        Email is required.
+      </div>
+      <div
+        *ngIf="
+          signUpForm.get('email')?.hasError('invalidEmail') &&
+          signUpForm.get('email')?.touched
+        "
+        class="error-message"
+      >
+        Invalid email address.
+      </div>
+    </div>
+    <div class="form-floating mb-2">
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        placeholder="Password"
+        formControlName="password"
+        [ngClass]="{
+          'has-error':
+            signUpForm.get('password')?.invalid &&
+            (signUpForm.get('password')?.dirty ||
+              signUpForm.get('password')?.touched)
+        }"
+      />
+      <label for="password">Password</label>
+      <div
+        *ngIf="
+          signUpForm.get('password')?.hasError('emptyPassword') &&
+          signUpForm.get('password')?.touched
+        "
+        class="error-message"
+      >
+        Password is required.
+      </div>
+    </div>
+
+    <button class="btn btn-primary w-100 py-2" type="submit" (click)="signup()">
+      Sign up
+    </button>
+  </form>
+</main>

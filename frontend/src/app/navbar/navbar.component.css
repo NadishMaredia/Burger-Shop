@@ -9,3 +9,7 @@
 .navbar-brand {
     color: black;
 }
+
+.has-error {
+    border: 2px solid red;
+}

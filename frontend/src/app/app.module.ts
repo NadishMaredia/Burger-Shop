@@ -12,6 +12,7 @@ import { JwtInterceptor } from './interceptor/jwtInterceptor';
 import { SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NotificationService } from './services/notification.service';
 import { SignupComponent } from './signup/signup.component';
+import { ProductItemComponent } from './product-item/product-item.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SignupComponent } from './signup/signup.component';
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    SignupComponent
+    SignupComponent,
+    ProductItemComponent
   ],
   imports: [
     BrowserModule,

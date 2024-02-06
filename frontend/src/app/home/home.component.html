@@ -7,20 +7,6 @@
         </ul>
     </div>
     <div class="col">
-        <div class="row">
-            <ng-container *ngFor="let p of products; let i = index">
-                <div class="col" style="margin-top: 20px;">
-                    <div class="card" style="width: 18rem;">
-                        <img src="{{p.image}}" class="card-img-top product-image" alt="...">
-                        <div class="card-body">
-                          <h5 class="card-title">{{p.title}}</h5>
-                          <p class="card-text">{{formatCurrency(p.price)}}</p>
-                          <a href="#" class="btn btn-primary">Add to cart</a>
-                        </div>
-                      </div>
-                </div>
-                <div *ngIf="(i + 1) % 3 === 0"></div>
-            </ng-container>
-        </div>
+        <app-product-item></app-product-item>
     </div>
 </div>

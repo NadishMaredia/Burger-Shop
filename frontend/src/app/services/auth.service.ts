@@ -55,4 +55,12 @@ export class AuthService {
 
     return !!jwtToken; 
   }
+
+  checkSessionIsAvailable() {
+      var userSessionString = localStorage.getItem('user');
+      if (userSessionString !== null) {
+        return true;
+      }
+    return false;
+  } 
 }

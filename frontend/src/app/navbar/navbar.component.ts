@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
-import { LoginRequest, LoginResponse, User } from '../models/User';
+import { LoginRequest, LoginResponse, User, UserSession } from '../models/User';
 import { NotificationService } from '../services/notification.service';
 import { Router } from '@angular/router';
 
@@ -13,14 +13,19 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   form: FormGroup = new FormGroup({});
+  isAuthenticated: boolean = false;
+  userName: any = "";
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private notificationService: NotificationService, private router: Router) { }
+  constructor(private fb: FormBuilder, public authService: AuthService, private notificationService: NotificationService, private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.fb.group({
       emailControl: [null, [Validators.required, this.emailValidator()]],
       passwordControl: [null, [Validators.required, this.passwordValidator()]],
     });
+
+    this.isAuthenticated = this.authService.isAuthenticated();
+    this.userName = this.authService.getUserName();
   }
 
   private emailValidator(): ValidatorFn {
@@ -54,6 +59,13 @@ export class NavbarComponent implements OnInit {
     };
   }
 
+  // getUserName() {
+  //   if(this.authService.userSubject.value != null) {
+  //     return this.authService.userSubject.value.name;
+  //   }
+  //   return null;
+  // }
+
   login() {
     if (this.form.valid) {
       
@@ -64,10 +76,11 @@ export class NavbarComponent implements OnInit {
 
       this.authService.login(user)
         .subscribe((res: LoginResponse) => {
-          this.authService.setSession(res.token);
+          this.authService.setSession(this.setSession(res));
           this.showSuccessNotification('Login successful');
+          this.isAuthenticated = this.authService.isAuthenticated();
         }, (err) => {
-          console.log(err)
+          alert(err.error.message)
         })
 
     } else {
@@ -86,8 +99,17 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  setSession(res: LoginResponse) {
+    var session: UserSession = {
+      _id: res.user._id,
+      name: res.user.name,
+      token: res.token
+    }
+
+    return session;
+  }
+
   showSuccessNotification(message: any): void {
-    console.log(message)
     this.notificationService.showSuccess(message);
   }
 
@@ -97,5 +119,11 @@ export class NavbarComponent implements OnInit {
 
   signup() {
     this.router.navigate(['/signup']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isAuthenticated = this.authService.isAuthenticated();
+    this.router.navigate(['/']);
   }
 }

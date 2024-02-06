@@ -24,51 +24,60 @@
           <a class="nav-link disabled" aria-disabled="true">Disabled</a>
         </li>
       </ul>
-      <form [formGroup]="form" class="d-flex" role="search">
-        <div class="form-group me-3">
-            <input
-              class="form-control"
-              formControlName="emailControl"
-              type="email"
-              placeholder="Email"
-              aria-label="Email"
-              [ngClass]="{
-                'has-error':
-                  form.get('emailControl')?.invalid &&
-                  (form.get('emailControl')?.dirty || form.get('emailControl')?.touched)
-              }"
-            />
-            <div *ngIf="form.get('emailControl')?.hasError('required') && form.get('emailControl')?.touched"
-              class="error-message">
-              Email is required.
-            </div>
-            <div *ngIf="form.get('emailControl')?.hasError('invalidEmail') && form.get('emailControl')?.touched"
-              class="error-message">
-              Invalid email address.
-            </div>
-          </div>
-
+      <ng-container *ngIf="!isAuthenticated">
+        <form [formGroup]="form" class="d-flex" role="search">
           <div class="form-group me-3">
-            <input
-              class="form-control"
-              formControlName="passwordControl"
-              type="password"
-              placeholder="Password"
-              aria-label="Password"
-              [ngClass]="{
-                'has-error':
-                  form.get('passwordControl')?.invalid &&
-                  (form.get('passwordControl')?.dirty || form.get('passwordControl')?.touched)
-              }"
-            />
-            <div *ngIf="form.get('passwordControl')?.hasError('required') && form.get('passwordControl')?.touched"
-              class="error-message">
-              Password is required.
+              <input
+                class="form-control"
+                formControlName="emailControl"
+                type="email"
+                placeholder="Email"
+                aria-label="Email"
+                [ngClass]="{
+                  'has-error':
+                    form.get('emailControl')?.invalid &&
+                    (form.get('emailControl')?.dirty || form.get('emailControl')?.touched)
+                }"
+              />
+              <div *ngIf="form.get('emailControl')?.hasError('required') && form.get('emailControl')?.touched"
+                class="error-message">
+                Email is required.
+              </div>
+              <div *ngIf="form.get('emailControl')?.hasError('invalidEmail') && form.get('emailControl')?.touched"
+                class="error-message">
+                Invalid email address.
+              </div>
             </div>
-          </div>
-        <button class="btn btn-outline-success me-2" type="submit" (click)="login()">Login</button>
-        <button class="btn btn-outline-success" type="submit" (click)="signup()">Signup</button>
-      </form>
+  
+            <div class="form-group me-3">
+              <input
+                class="form-control"
+                formControlName="passwordControl"
+                type="password"
+                placeholder="Password"
+                aria-label="Password"
+                [ngClass]="{
+                  'has-error':
+                    form.get('passwordControl')?.invalid &&
+                    (form.get('passwordControl')?.dirty || form.get('passwordControl')?.touched)
+                }"
+              />
+              <div *ngIf="form.get('passwordControl')?.hasError('required') && form.get('passwordControl')?.touched"
+                class="error-message">
+                Password is required.
+              </div>
+            </div>
+          <button class="btn btn-outline-success me-2" type="submit" (click)="login()">Login</button>
+          <button class="btn btn-outline-success" type="submit" (click)="signup()">Signup</button>
+        </form>
+      </ng-container>
+
+      <ng-container *ngIf="isAuthenticated">
+        <p>Welcome {{userName}}</p>
+
+        <button class="btn btn-outline-success" type="submit" (click)="logout()">Logout</button>
+      </ng-container> 
+      
     </div>
   </div>
 </nav>

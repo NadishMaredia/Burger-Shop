@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { SignupRequest, SignupResponse, UserSession } from '../models/User';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -10,7 +13,9 @@ export class SignupComponent implements OnInit {
 
   signUpForm: FormGroup = new FormGroup({});
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.signUpForm = this.fb.group({
@@ -64,8 +69,23 @@ export class SignupComponent implements OnInit {
   }
 
   signup() {
-    console.log(this.signUpForm)
+
     if (this.signUpForm.valid) {
+
+      var user: SignupRequest = {
+        name: this.signUpForm.get('name')?.value,
+        email: this.signUpForm.get('email')?.value,
+        password: this.signUpForm.get('password')?.value,
+        role: 'customer'
+      };
+
+      this.authService.signup(user)
+        .subscribe((res: SignupResponse) => {
+          this.authService.setSession(this.setSession(res));
+          this.router.navigate(['/']);
+        }, (err) => {
+          alert('Some issue occur while signing up..')
+        })
 
     } else {
       this.markFormGroupTouched(this.signUpForm);
@@ -85,6 +105,16 @@ export class SignupComponent implements OnInit {
 
   get email() {
     return this.signUpForm.get('email');
+  }
+
+  setSession(res: SignupResponse) {
+    var session: UserSession = {
+      _id: res.user._id,
+      name: res.user.name,
+      token: res.token
+    }
+
+    return session;
   }
 
 }

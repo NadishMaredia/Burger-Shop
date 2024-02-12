@@ -6,21 +6,27 @@ import { Order } from '../models/Order';
 import { AuthService } from '../services/auth.service';
 import { OrderConfirmationModalComponent } from '../order-confirmation-modal/order-confirmation-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-page',
   templateUrl: './cart-page.component.html',
-  styleUrls: ['./cart-page.component.css']
+  styleUrls: ['./cart-page.component.css'],
 })
 export class CartPageComponent implements OnInit {
-
   cart: Cart[] = [];
   total: number = 0;
   taxes: number = 0;
   totalAmount: number = 0;
   quantityOptions = Array.from({ length: 20 }, (_, i) => i + 1);
 
-  constructor(private dialog: MatDialog, private cartService: CartService, private utilService: UtilService, private authService: AuthService) { }
+  constructor(
+    private dialog: MatDialog,
+    private cartService: CartService,
+    private utilService: UtilService,
+    private authService: AuthService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getCart();
@@ -31,7 +37,7 @@ export class CartPageComponent implements OnInit {
     this.cart = this.cartService.getCart();
   }
 
-  removeFromCart(item: Cart){
+  removeFromCart(item: Cart) {
     this.cartService.removeFromCart(item);
     this.getCart();
     this.calculateTotal();
@@ -39,7 +45,7 @@ export class CartPageComponent implements OnInit {
 
   calculateTotal() {
     this.total = this.cart.reduce((acc, product) => {
-      return acc + (product.quantity * product.price);
+      return acc + product.quantity * product.price;
     }, 0);
 
     this.calculateTaxes();
@@ -71,9 +77,10 @@ export class CartPageComponent implements OnInit {
       paymentStatus: 'Not',
       status: 'Placed',
       userId: this.authService.getUserId(),
-      totalAmount: this.totalAmount.toFixed(2)
-    }
+      totalAmount: this.totalAmount.toFixed(2),
+    };
     this.openDialog(order);
+    this.router.navigateByUrl('/order-confirm') ;
   }
 
   openDialog(order: Order) {
@@ -81,8 +88,8 @@ export class CartPageComponent implements OnInit {
       width: '400px', // Adjust the width as needed
       data: { order }, // Pass data to the modal if needed
     });
-  
-    dialogRef.afterClosed().subscribe(result => {
+
+    dialogRef.afterClosed().subscribe((result) => {
       // Handle any actions after the modal is closed, if needed
       console.log('Modal closed with result:', result);
     });

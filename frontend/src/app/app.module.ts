@@ -19,6 +19,10 @@ import { OrderConfirmationModalComponent } from './order-confirmation-modal/orde
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatIconModule } from '@angular/material/icon';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +32,8 @@ import { MatInputModule } from '@angular/material/input';
     ProductItemComponent,
     SideNavComponent,
     CartPageComponent,
-    OrderConfirmationModalComponent
+    OrderConfirmationModalComponent,
+    OrderConfirmComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +45,8 @@ import { MatInputModule } from '@angular/material/input';
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
+    MatStepperModule,
+    MatIconModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

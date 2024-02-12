@@ -1,0 +1,33 @@
+<mat-horizontal-stepper class="order-stepper" [selectedIndex]="selectedIndex">
+  <mat-step label="Order Placed">
+    <!-- <ng-template>
+        <div class="stepper-label">
+          <span>Order Placed</span>
+          <mat-icon>check_circle</mat-icon>
+        </div>
+      </ng-template> -->
+  
+      <div class="step-content">
+        <div class="confirmation-message">
+          <mat-icon class="success-icon">check_circle_outline</mat-icon>
+          <p>Your order has been successfully placed!</p>
+        </div>
+        <div class="order-details">
+          <h3>Order Details</h3>
+          <!-- Display order details such as order ID, date, etc. -->
+        </div>
+      </div>
+  </mat-step>
+  <mat-step label="Preparing">
+    <!-- Your content for Preparing step -->
+  </mat-step>
+  <mat-step label="Quality Check">
+    <!-- Your content for Quality Check step -->
+  </mat-step>
+  <mat-step label="Delivery">
+    <!-- Your content for Delivery step -->
+  </mat-step>
+  <mat-step label="Completed">
+    <!-- Your content for Completed step -->
+  </mat-step>
+</mat-horizontal-stepper>

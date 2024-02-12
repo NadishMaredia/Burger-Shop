@@ -95,6 +95,7 @@ export class CartPageComponent implements OnInit {
       if (result.result === 'confirm') {
         this.orderService.placedOrder(order).subscribe(
           (res) => {
+            this.cartService.clearCart();
             this.router.navigateByUrl('/order-confirm');
           },
           (err) => {

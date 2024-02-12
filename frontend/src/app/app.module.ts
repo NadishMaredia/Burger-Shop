@@ -13,6 +13,8 @@ import { SnotifyService, ToastDefaults } from 'ng-snotify';
 import { NotificationService } from './services/notification.service';
 import { SignupComponent } from './signup/signup.component';
 import { ProductItemComponent } from './product-item/product-item.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
+import { CartPageComponent } from './cart-page/cart-page.component';
 
 
 @NgModule({
@@ -21,7 +23,9 @@ import { ProductItemComponent } from './product-item/product-item.component';
     HomeComponent,
     NavbarComponent,
     SignupComponent,
-    ProductItemComponent
+    ProductItemComponent,
+    SideNavComponent,
+    CartPageComponent
   ],
   imports: [
     BrowserModule,

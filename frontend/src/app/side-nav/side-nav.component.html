@@ -1,0 +1,6 @@
+<ul class="list-group">
+    <li class="list-group-item side-nav-list"><a href="home/all" class="product-link">All Products</a></li>
+    <li *ngFor="let c of categories; let i = index" class="list-group-item side-nav-list">
+        <a href="home/{{c._id}}" class="product-link">{{c.name}}</a>
+    </li>
+</ul>

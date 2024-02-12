@@ -1,5 +1,7 @@
 const Category = require('../models/category');
 const Product = require('../models/product');
+const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
 
 const addProduct = async (req, res) => {
 
@@ -32,7 +34,24 @@ const addProduct = async (req, res) => {
 const getAllProducts = async (req, res) => {
 
     try {
-        const products = await Product.find();
+        let query = {};
+
+        // Check if category parameter is provided in the route params
+        if (req.params.category && req.params.category.toLowerCase() !== 'all') {
+            // Convert the category value to a valid ObjectId
+            // const categoryId = ObjectId.isValid(req.params.category) ? new ObjectId(req.params.category) : null;
+
+            // if (categoryId) {
+                query.category = req.params.category;
+            // }
+        }
+
+        // Fetch products based on the filter
+        const products = await Product.find(query);
+
+        if(!products) {
+            return res.status(400).json({ error: 'Products not exists in the database' });
+        }
 
     // Extract category IDs from products
     const categoryIds = products.map((product) => product.category);

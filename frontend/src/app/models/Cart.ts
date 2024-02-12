@@ -1,8 +1,9 @@
-export interface Product {
-    _id: String;
+export interface Cart {
+    id: String;
     title: String;
     price: number;
     image: String;
     category: String;
     categoryName: String;
+    quantity: number;
 }

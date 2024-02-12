@@ -1,0 +1,10 @@
+.side-nav-list:hover {
+    background-color: cornflowerblue;
+    color: white !important;
+    cursor: pointer;
+}
+
+.product-link {
+    text-decoration: none;
+    color: black;
+}

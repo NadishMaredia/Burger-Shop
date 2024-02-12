@@ -12,28 +12,8 @@ import { UtilService } from '../services/util.service';
 })
 export class HomeComponent implements OnInit {
 
-  products: Product[] = [];
-  categories: Category[] = [];
-  constructor(private productService: ProductService, private categoryService: CategoryService, private utilService: UtilService) { }
+  constructor(private utilService: UtilService) { }
 
   ngOnInit(): void {
-    this.getProducts();
-    this.getCategories();
-  }
-
-  getProducts() {
-    this.productService.getAllProducts().subscribe(products => {
-      this.products = products;
-    })
-  }
-
-  getCategories() {
-    this.categoryService.getAllCategories().subscribe(category => {
-      this.categories = category;
-    })
-  }
-
-  formatCurrency(amount: Number) {
-    return this.utilService.formatCurrency(amount);
   }
 }

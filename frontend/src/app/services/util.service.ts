@@ -8,6 +8,6 @@ export class UtilService {
   constructor() { }
 
   formatCurrency(currency: Number) {
-    return "$" + currency;
+    return "$" + currency.toFixed(2);
   }
 }

@@ -1,0 +1,11 @@
+/* order-confirmation-modal.component.css */
+h2 {
+    color: #1565c0; /* Adjust the color as needed */
+  }
+  
+  .modal-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  

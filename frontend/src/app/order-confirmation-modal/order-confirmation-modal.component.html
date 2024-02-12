@@ -1,0 +1,19 @@
+<h2>Order Confirmation</h2>
+<p>Please provide your additional information:</p>
+
+<mat-form-field>
+  <input matInput placeholder="Card Name" [(ngModel)]="cardName" required>
+</mat-form-field>
+
+<mat-form-field>
+    <input matInput placeholder="Card Number" [(ngModel)]="cardNumber" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput placeholder="CVV" [(ngModel)]="cvv" required>
+  </mat-form-field>
+
+<div class="modal-buttons">
+  <button mat-button (click)="close()">Cancel</button>
+  <button mat-raised-button color="primary" (click)="confirmOrder()">Confirm Order</button>
+</div>

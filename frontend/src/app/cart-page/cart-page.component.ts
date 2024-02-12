@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Cart } from '../models/Cart';
 import { CartService } from '../services/cart.service';
 import { UtilService } from '../services/util.service';
+import { Order } from '../models/Order';
+import { AuthService } from '../services/auth.service';
+import { OrderConfirmationModalComponent } from '../order-confirmation-modal/order-confirmation-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-cart-page',
@@ -16,7 +20,7 @@ export class CartPageComponent implements OnInit {
   totalAmount: number = 0;
   quantityOptions = Array.from({ length: 20 }, (_, i) => i + 1);
 
-  constructor(private cartService: CartService, private utilService: UtilService) { }
+  constructor(private dialog: MatDialog, private cartService: CartService, private utilService: UtilService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCart();
@@ -58,5 +62,29 @@ export class CartPageComponent implements OnInit {
 
   formatCurrency(amount: Number) {
     return this.utilService.formatCurrency(amount);
+  }
+
+  placeOrder() {
+    var order: Order = {
+      cart: this.cart,
+      createdDate: new Date().toUTCString(),
+      paymentStatus: 'Not',
+      status: 'Placed',
+      userId: this.authService.getUserId(),
+      totalAmount: this.totalAmount.toFixed(2)
+    }
+    this.openDialog(order);
+  }
+
+  openDialog(order: Order) {
+    const dialogRef = this.dialog.open(OrderConfirmationModalComponent, {
+      width: '400px', // Adjust the width as needed
+      data: { order }, // Pass data to the modal if needed
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      // Handle any actions after the modal is closed, if needed
+      console.log('Modal closed with result:', result);
+    });
   }
 }

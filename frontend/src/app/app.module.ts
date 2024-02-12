@@ -15,8 +15,10 @@ import { SignupComponent } from './signup/signup.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { CartPageComponent } from './cart-page/cart-page.component';
-
-
+import { OrderConfirmationModalComponent } from './order-confirmation-modal/order-confirmation-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,8 @@ import { CartPageComponent } from './cart-page/cart-page.component';
     SignupComponent,
     ProductItemComponent,
     SideNavComponent,
-    CartPageComponent
+    CartPageComponent,
+    OrderConfirmationModalComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,10 @@ import { CartPageComponent } from './cart-page/cart-page.component';
     HttpClientModule,
     ReactiveFormsModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

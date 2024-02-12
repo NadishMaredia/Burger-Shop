@@ -50,6 +50,13 @@ export class AuthService {
       return null;
     }
 
+    getUserId() {
+      if(this.userSubject.value != null) {
+        return this.userSubject.value._id;
+      }
+      return null;
+    }
+
   isAuthenticated(): boolean {
     const jwtToken = localStorage.getItem('user');
 

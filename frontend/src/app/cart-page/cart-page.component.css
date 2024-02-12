@@ -53,11 +53,20 @@ button:hover {
 
 .amount-p {
   display: flex;
-  align-items: flex-end;
+  flex-direction: row-reverse;
   padding: 5px;
 }
 
 .bold {
   font-weight: 800;
+  display: contents;
 }
 
+.green {
+  background-color: green;
+  float: right;
+}
+
+.green:hover {
+  background-color: darkgreen;
+}

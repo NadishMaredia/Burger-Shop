@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-md navbar-dark mb-4">
+<nav class="navbar navbar-expand-md  mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Top navbar</a>
+    <a class="navbar-brand" href="#">E Shop</a>
     <button
       class="navbar-toggler"
       type="button"
@@ -17,11 +17,8 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+        <li *ngIf="isAuthenticated" class="nav-item">
+          <a class="nav-link" href="#">My orders</a>
         </li>
       </ul>
       <ng-container *ngIf="!isAuthenticated">

@@ -25,6 +25,7 @@ export class OrderConfirmationModalComponent {
   } else {
     // Fields are not empty, close the modal
     this.dialogRef.close({
+      result:'confirm',
       cardName: this.cardName,
       cardNumber: this.cardNumber,
       cvv: this.cvv

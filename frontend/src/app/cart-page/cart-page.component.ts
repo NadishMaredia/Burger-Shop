@@ -7,6 +7,7 @@ import { AuthService } from '../services/auth.service';
 import { OrderConfirmationModalComponent } from '../order-confirmation-modal/order-confirmation-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { OrderService } from '../services/order.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -25,6 +26,7 @@ export class CartPageComponent implements OnInit {
     private cartService: CartService,
     private utilService: UtilService,
     private authService: AuthService,
+    private orderService: OrderService,
     private router: Router
   ) {}
 
@@ -79,8 +81,8 @@ export class CartPageComponent implements OnInit {
       userId: this.authService.getUserId(),
       totalAmount: this.totalAmount.toFixed(2),
     };
+
     this.openDialog(order);
-    this.router.navigateByUrl('/order-confirm') ;
   }
 
   openDialog(order: Order) {
@@ -90,6 +92,16 @@ export class CartPageComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
+      if (result.result === 'confirm') {
+        this.orderService.placedOrder(order).subscribe(
+          (res) => {
+            this.router.navigateByUrl('/order-confirm');
+          },
+          (err) => {
+            alert(err);
+          }
+        );
+      }
       // Handle any actions after the modal is closed, if needed
       console.log('Modal closed with result:', result);
     });

@@ -12,15 +12,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let item of cart">
+        <tr *ngFor="let item of cart;let i = index">
           <td><img width="50" [src]="item.image"></td>
           <td>{{item.title}}</td>
           <td>{{item.categoryName}}</td>
           <td>{{formatCurrency(item.price)}}</td>
-          <td>{{item.quantity}} pc(s)</td>
+          <td>
+            <select [(ngModel)]="item.quantity" (change)="updateQuantity(i)">
+              <option *ngFor="let qty of quantityOptions" [value]="qty">{{ qty }}</option>
+            </select>
+            pc(s)</td>
           <td><a class="removeCart" (click)="removeFromCart(item)"><span style="color: black;" class="material-icons">cancel</span></a></td>
         </tr>
       </tbody>
     </table>
-    {{total}}
+    <p class="amount-p">Your sub-total will be: <span class="bold">{{formatCurrency(total)}}</span></p>
+    <p class="amount-p">Taxes: <span class="bold">{{formatCurrency(taxes)}}</span></p>
+    <p class="amount-p">Total: <span class="bold">{{formatCurrency(totalAmount)}}</span></p>
   </div>

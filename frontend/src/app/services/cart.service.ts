@@ -46,7 +46,7 @@ export class CartService {
     this.saveCart();
   }
 
-  private saveCart(): void {
+  saveCart(): void {
     // Save the updated cart to session storage
     sessionStorage.setItem('cart', JSON.stringify(this.cart));
   }

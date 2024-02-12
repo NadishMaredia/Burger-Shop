@@ -50,3 +50,14 @@ button:hover {
 .removeCart {
   cursor: pointer;
 }
+
+.amount-p {
+  display: flex;
+  align-items: flex-end;
+  padding: 5px;
+}
+
+.bold {
+  font-weight: 800;
+}
+
